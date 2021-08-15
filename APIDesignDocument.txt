@@ -1,0 +1,24 @@
+//Assumptions
+1. All vehicals is considered same.
+2. one user can book only one parking within 30 minute slot(if occupency is less than 50%).
+3. for getAllOccupiedParkingSlot function we are assuming => total occupied lots= actual occupied lots + unoccupied lots under future booking_end_time.
+
+API
+1. userId RegisterUser(name,email,create_date,updatetime,categoty,is_active);
+
+3. (parkingId,bookingEndTime) CreatingBooking(userId,Booking_time);
+4. (list Pid) getAllAvailableParkingSlot();
+5. (list Pid) getAllOccupiedParkingSlot();
+6. getAllResisteredUser()
+7. void Vehical_parked(pid,userid)=> update is_occupied=1
+8. void VehicalUnparked(userId, pid)=> update is_occupied=0
+
+other function
+ bookinglist getAllbooking(user_id)
+ 2. void updateUserInfo(id,nmme,email,category,Is_active)-> it if for employer.
+
+
+Table.
+1.User(id, name,email,create_date,updatetime,categoty,is_active.
+2.Parkinglot(pk Pid,is_reserved,Is_occupied,last_user_id,last_booking_id).
+3. UserBookings(pk bookinng_id,pid,Booking_start_time, booking_valid_time,user_id);// main purpose of this table => bookng history maintain.
