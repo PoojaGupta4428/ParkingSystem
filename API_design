@@ -1,0 +1,59 @@
+API
+1. userId RegisterUser(name,email,create_date,updatetime,categoty,is_active)
+
+3. (parkingId,bookingEndTime) CreatingBooking(userId,Booking_time);
+4. (list Pid) getAllAvailableParkingSlot();
+5. (list Pid) getAllOccupiedParkingSlot();
+6. getAllResisteredUser()
+7. void Vehical_parked(pid,userid)=> update is_occupied=1
+8. void VehicalUnparked(userId, pid)=> update is_occupied=0
+
+other function
+ bookinglist getAllbooking(user_id)
+ 2. void updateUserInfo(id,nmme,email,category,Is_active)-> it if for employer.
+
+
+Table.
+1.User(name,email,create_date,updatetime,categoty,is_active.
+2.Parkinglot(pk Pid,is_reserved,Is_occupied,last_user_id,fk last_bookinng_id).
+3. UserBookings(pk bookinng_id,pid,Booking_start_time, booking_valid_time,user_id);// two purpose of this table 1. bookng history maintain.
+
+Implementation:
+4. (parkingId,bookingEndTime, message) CreatingBooking(userId,Booking_time)
+{
+	int PersentageOccupency;
+	List<pid,is_reserved> availableParking =getParkingId all three table where Booking_time>end_time and Is_occupied==0 sort by is_reserved.
+	int availableLots;
+	string user_categoty;
+	if(user_categoty==Gn)
+	{
+		if(availableParking[availableLots-1].isReserved==0)
+		{
+		if(PersentageOccupency<50)
+			bookSeat(availableParking[availableLots-1].pid,user_id,Booking_time,Booking_time+30);
+		else
+			bookSeat(availableParking[availableLots-1].pid,user_id,Booking_time,Booking_time+15);
+		}
+		return (availableParking[availableLots-1].pid,Booking_time+30);
+	}
+		if(user_categoty==ph || user_categoty==PW )
+	{
+		if(PersentageOccupency<50)
+			bookSeat(availableParking[0].pid,user_id,Booking_time,Booking_time+30);
+		else
+			bookSeat(availableParking[0].pid,user_id,Booking_time,Booking_time+15);
+		return (availableParking[0].pid,Booking_time+30);
+	}
+
+    message= parking is not avaiable
+    return <"","",message>
+
+}
+
+
+private Void bookSeat(int pid,string userId, string bookingStartTime, String bookingEndTime)
+{
+	bookingId=SQLquery(Insert table UserBookings pid, userId,bookingStartTime,bookingEndtimeTime,user_id);
+	SQLquery(update table ParkingLot booking_id, user_id where pid=this.pid)
+}
+
