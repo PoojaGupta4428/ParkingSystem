@@ -21,4 +21,5 @@ other function
 Table.
 1.User(id, name,email,create_date,updatetime,categoty,is_active.
 2.Parkinglot(pk Pid,is_reserved,Is_occupied,last_user_id,last_booking_id).
-3. UserBookings(pk bookinng_id,pid,Booking_start_time, booking_valid_time,user_id);// main purpose of this table => bookng history maintain.
+3. UserBookings(pk bookinng_id,pid,Booking_start_time, booking_valid_time,user_id, vehical_number);// main purpose of this table => bookng history maintain. in this table we can keep vehicalparked time and vehical unparked time but for simplicity we did not kept it in our code.
+
