@@ -11,8 +11,10 @@ API
 4. (list Pid) getAllAvailableParkingSlot();
 5. (list Pid) getAllOccupiedParkingSlot();
 6. getAllResisteredUser()
-7. void Vehical_parked(pid,userid)=> update is_occupied=1
-8. void VehicalUnparked(userId, pid)=> update is_occupied=0
+7. void parkVehical(pid,userid)=> update is_occupied=1
+8. void unparkVehical(userId, pid)=> update is_occupied=0
+// this function isused to create the entries in ParkingLot db table with default values.
+9 void createMasterData()
 
 Other function which can be addedd in this project
 1. bookingInfolist getAllbooking(user_id)
