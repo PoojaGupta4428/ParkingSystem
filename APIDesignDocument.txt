@@ -1,6 +1,6 @@
 //Assumptions
-1. All vehicals is considered same.
-2. one user can book only one parking within 30 minute slot(if occupency is less than 50%).
+1. One vehical can be parked in one parking area irrespective of size.
+2. one user can book only one parking within 30 minute slot(if occupency is less than 50%). to book another parking area he need to wait for 30 min at least.
 3. for getAllOccupiedParkingSlot function we are assuming => total occupied lots= actual occupied lots + unoccupied lots under future booking_end_time.
 
 API
@@ -13,9 +13,9 @@ API
 7. void Vehical_parked(pid,userid)=> update is_occupied=1
 8. void VehicalUnparked(userId, pid)=> update is_occupied=0
 
-other function
- bookinglist getAllbooking(user_id)
- 2. void updateUserInfo(id,nmme,email,category,Is_active)-> it if for employer.
+Other function which can be addedd in this project
+1. bookingInfolist getAllbooking(user_id)
+2. void updateUserInfo(id,nmme,email,category,Is_active)-> it if for employer.
 
 
 Table.
