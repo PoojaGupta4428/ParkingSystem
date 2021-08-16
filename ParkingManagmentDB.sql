@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2021 at 09:59 AM
+-- Generation Time: Aug 16, 2021 at 10:50 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `parkingmanagmentdb`
 --
-CREATE DATABASE IF NOT EXISTS `parkingmanagmentdb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `parkingmanagmentdb`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +26,6 @@ USE `parkingmanagmentdb`;
 -- Table structure for table `parkinglot`
 --
 
-DROP TABLE IF EXISTS `parkinglot`;
 CREATE TABLE `parkinglot` (
   `pid` int(11) NOT NULL,
   `Is_reserved` enum('0','1') NOT NULL,
@@ -43,7 +40,6 @@ CREATE TABLE `parkinglot` (
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -60,7 +56,6 @@ CREATE TABLE `user` (
 -- Table structure for table `userbookings`
 --
 
-DROP TABLE IF EXISTS `userbookings`;
 CREATE TABLE `userbookings` (
   `bookinng_id` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
@@ -128,4 +123,3 @@ ALTER TABLE `userbookings`
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 ALTER TABLE `user` ADD UNIQUE(`email`);
-
