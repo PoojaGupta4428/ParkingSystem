@@ -22,7 +22,7 @@ if (!$mysqli->set_charset('utf8')) {
 }
 
 // No of parking slot
-define("PARKINGSLOT", '10');
+define("PARKINGSLOT", '120');
 
 // Category of user type
 define("GERNAL_CATEGORY", 'gen');
