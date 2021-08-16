@@ -262,8 +262,40 @@ function bookParking($pid,$userId,$bookingStartTime, $bookingEndTime,$vehicalNum
 	return $result;
 }
 
+function createMasterData()
+{
+	global $mysqli;
+	// 
+	$obj = mysqli_query($mysqli, "SELECT *
+		FROM parkinglot where Is_reserved='1'");
+	print_r($obj);
+	echo $obj->num_rows;
+	echo $reservedSeats = $obj->num_rows;
+	for($i=$reservedSeats;$i<24;$i++)
+	{
 
+		mysqli_query($mysqli,
+			"INSERT INTO parkinglot (Is_reserved) 
+			VALUES ('1');");
+	}
+
+
+	$obj = mysqli_query($mysqli, "SELECT *
+		FROM parkinglot where Is_reserved='0'");
+	echo $unreservedSeats = $obj->num_rows;
+
+	for($i=$unreservedSeats;$i<96;$i++)
+	{
+		mysqli_query($mysqli,
+			"INSERT INTO parkinglot (Is_reserved) 
+			VALUES ('0');");
+	}
+
+}
 //Testting Area
+
+//createMasterData();
+
 
 $c=16;
 $t1="gen";
