@@ -2,6 +2,8 @@
 
 include('config.php');
 
+// Public APIs
+
 // Create user
 function registerUser($userName,$userEmail,$userType){
 	global $mysqli;
@@ -70,7 +72,7 @@ function getAllAvailableParkingSlot(){
 	FROM parkinglot as p LEFT JOIN userbookings as u 
 	ON p.pid = u.pid
 	where p.Is_occupied='0'
-	and( u.booking_valid_time < CURRENT_TIMESTAMP or u.booking_valid_time is NULL)
+	and( u.booking_valid_time < CURRENT_TIMESTAMP and u.bookinng_id=p.last_bookinng_id or u.booking_valid_time is NULL)
 	Order by p.Is_reserved DESC
 	";
 	$res1 = mysqli_query($mysqli, $prec);
@@ -94,14 +96,14 @@ function creatingNewBooking($user_id , $vehicalNumber){
 		id=".$user_id."");
 	$row = mysqli_fetch_row($rec);
 	if($row==null){
-		echo $msg = "User is not a valid user with id ".$user_id;
+		$msg = "User is not a valid user with id ".$user_id;
 		return $msg;
 	}
 	$user_categoty = $row[0];
 	$isActiveUser=$row[1];
 	if($isActiveUser!=1)
 	{
-		echo $msg = "User is not a active user with ".$user_id;
+		$msg = "User is not a active user with ".$user_id;
 		return $msg;
 	}
 
@@ -118,6 +120,10 @@ function creatingNewBooking($user_id , $vehicalNumber){
 
 	$availableParking = getAllAvailableParkingSlot();
 	$availableLotsCount = count($availableParking);
+	if($availableLotsCount==0)
+	{
+		return "Parkinglot is full";
+	}
 	$totalParkingSlot = PARKINGSLOT;
 
 	$PersentageOccupency =100 - ($availableLotsCount/$totalParkingSlot)*100;
@@ -145,20 +151,23 @@ function creatingNewBooking($user_id , $vehicalNumber){
 
 function parkVehical($booking_id, $vehicalNumber){
 	global $mysqli;
+	$booking_id."manoj";
 	$Is_occupied = '1';
 	// if user booking time is exceed
-	echo $prec = "SELECT pid ,user_id,vehical_number
+	$prec = "SELECT pid ,user_id,vehical_number
 	FROM userbookings 
 	where bookinng_id=$booking_id
 	and booking_valid_time > CURRENT_TIMESTAMP";
 
 	$res1 = mysqli_query($mysqli, $prec);
 	$bookingInfo = mysqli_fetch_row($res1);
+	print_r($bookingInfo);
 	if($bookingInfo == null){
 		$result['msg'] = "Booking is not valid now. Please try another booking";
 		return $result;
 	}
-	if(bookingInfo[3]!=$vehicalNumber)
+	$bookingInfo[2];
+	if($bookingInfo[2]!=$vehicalNumber)
 	{
 		$msg = "This booking is not valid for this vahical number".$vehicalNumber;
 		return $msg;
@@ -182,11 +191,12 @@ function parkVehical($booking_id, $vehicalNumber){
 			$userid);
 	$stmt2->execute(); // it may not find a entry for 
 }catch (Exception $e){
-	echo "error Message:".$e->getMessage();
+	"error Message:".$e->getMessage();
 }
 }
 
-function vehicalUnparked($userId, $pid){
+
+function unparkVehical($userId, $pid){
 
 	global $mysqli;
 	$Is_occupied = '0';
@@ -207,11 +217,12 @@ function vehicalUnparked($userId, $pid){
 
 }
 
+// private functions
 //Does user have some current valid booking which is not expired yet.
 function checkIfExistingValidBooking($user_id){
 	global $mysqli;
 	//Does user have some current valid booking which is not expired yet.
-	echo $prec =	"SELECT u.bookinng_id,u.pid,u.booking_valid_time
+	 $prec =	"SELECT u.bookinng_id,u.pid,u.booking_valid_time
 	from userbookings as u
 	where u.user_id=$user_id and u.booking_valid_time > CURRENT_TIMESTAMP ";
 	$res1 = mysqli_query($mysqli, $prec);
@@ -230,7 +241,6 @@ function bookParking($pid,$userId,$bookingStartTime, $bookingEndTime,$vehicalNum
 			VALUES ('$pid', '$bookingStartTime', '$bookingEndTime', '$userId','$vehicalNumber');");
 
 		$booking_id = mysqli_insert_id($mysqli);
-
 		$stmt2 = $mysqli->prepare("
 			UPDATE
 			ParkingLot
@@ -248,21 +258,28 @@ function bookParking($pid,$userId,$bookingStartTime, $bookingEndTime,$vehicalNum
 		$result['bookingId']=$booking_id;
 		$result['Messgae']="one Parkinglot is booked till time ".$bookingEndTime;
 	} catch(Exception $e){
-		echo "error Message".$e->getMessage();
+		 "error Message".$e->getMessage();
 	}
 	return $result;
 }
 
 
+//Testting Area
 
-$c=8;
+$c=16;
 $t1="gen";
 $t2="ph";
 $t3="pw";
 //$test = CreatingBooking(2);
-	//registerUser("user".$c,$c."email@pickmysolar.com",$t2);
-CreatingNewBooking("15","vehical".$c);
+registerUser("user".$c,$c."email@pickmysolar.com",$t2);
 
-?>
+$bookingInfo = CreatingNewBooking($c+7,"vehical".$c);
+
+//parkVehical($bookingInfo['bookingId'],"vehical".$c);
+//unparkVehical(22,$bookingInfo['parkingId']);
+
+// print_r(getAllAvailableParkingSlot());
 
 // https://github.com/PoojaGupta4428/ParkingSystem
+?>
+
