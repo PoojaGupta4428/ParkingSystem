@@ -151,7 +151,6 @@ function creatingNewBooking($user_id , $vehicalNumber){
 
 function parkVehical($booking_id, $vehicalNumber){
 	global $mysqli;
-	$booking_id."manoj";
 	$Is_occupied = '1';
 	// if user booking time is exceed
 	$prec = "SELECT pid ,user_id,vehical_number
