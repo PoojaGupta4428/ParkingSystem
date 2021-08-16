@@ -2,6 +2,7 @@
 1. All vehicals is considered same.
 2. one user can book only one parking within 30 minute slot(if occupency is less than 50%).
 3. for getAllOccupiedParkingSlot function we are assuming => total occupied lots= actual occupied lots + unoccupied lots under future booking_end_time.
+4. user's booking will be valid event he park and unpark vehical multiple times.
 
 API
 1. userId RegisterUser(name,email,create_date,updatetime,categoty,is_active);
